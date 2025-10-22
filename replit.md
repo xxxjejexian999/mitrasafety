@@ -5,17 +5,40 @@ Mitra Safety is a comprehensive e-commerce platform for safety equipment in Indo
 
 ## Recent Changes (October 22, 2025)
 
-### UI/UX Improvements
-- ✅ **PromoBar Component**: Added a sticky promotional banner at the top showing:
+### UI/UX Improvements Completed
+- ✅ **Category Cards Enhancement**: Each category now displays exactly 3 unique product images with Indonesian captions
+  - Created categoryImages.ts mapping file with 20 total product images (3 per category × 6 categories)
+  - Enhanced CategoryCard component with professional 3-image gallery layout
+  - All images copied to client/public/assets/generated_images/ for proper serving
+  
+- ✅ **WhatsApp Communication Widget**: Major enhancement with improved visibility and professional styling
+  - Floating widget with green gradient background and pulsing animation
+  - "Chat Langsung" label for clear call-to-action
+  - Interactive chat panel with quick message templates
+  - Professional styling aligned with WhatsApp brand
+  
+- ✅ **WhatsApp Quick Contact Buttons**: Added strategic placement throughout the site
+  - Hero section: "Chat Langsung via WhatsApp" prominent button
+  - Floating widget: Always accessible from any page
+  - Pre-filled messages for better user experience
+  
+- ✅ **Layout & Visual Hierarchy Optimization**: 
+  - Enhanced spacing and alignment across all sections
+  - Improved heading sizes (3xl → 4xl on desktop) for better visual hierarchy
+  - Enhanced underline accent from 1px → 1.5px with gradient
+  - Better responsive padding for mobile and desktop views
+  - Consistent section spacing (py-8) throughout the site
+  
+- ✅ **PromoBar Component**: Sticky promotional banner at the top showing:
   - Free shipping for Jabodetabek area
   - Special 11.11 promotion with up to 50% discount for bulk orders
-- ✅ **Hero Layout Optimization**: Cleaned up the hero section by moving promotions to dedicated PromoBar
-- ✅ **Better Visual Hierarchy**: Promotional messages are now prominently displayed at the top of the page
 
 ### Technical Improvements
+- ✅ Fixed React hooks ordering issue in ProductDetailModal (critical bug fix)
+- ✅ Fixed TypeScript type compatibility for product specifications
 - ✅ Configured Vite for Replit proxy support (0.0.0.0:5000 with HMR over WSS)
-- ✅ Fixed TypeScript type compatibility issues between database schema and components
 - ✅ Updated .gitignore with proper exclusions
+- ✅ All changes maintain full responsiveness for web and mobile (Android/iOS)
 
 ## Project Architecture
 
