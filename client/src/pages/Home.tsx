@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import PromoBar from "@/components/PromoBar";
 import CategoryCard from "@/components/CategoryCard";
 import ProductCard from "@/components/ProductCard";
 import CartSheet from "@/components/CartSheet";
@@ -240,6 +241,7 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col" lang="id">
+      <PromoBar />
       <Header
         cartItemCount={totalCartItems}
         onCartClick={openCart}

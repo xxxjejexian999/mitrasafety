@@ -93,38 +93,12 @@ export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: Hero
             </Button>
           </motion.div>
 
-          {/* Regional messaging */}
-          <motion.div
-            className="mb-6 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20"
+          {/* Fitur unggulan - Featured benefits */}
+          <motion.ul 
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <p className="text-center text-white/90">
-              <span className="font-semibold">Gratis Ongkir Jabodetabek</span> • 
-              <span className="ml-2">Pengiriman Cepat ke Seluruh Indonesia</span>
-            </p>
-          </motion.div>
-
-          {/* Seasonal campaign banner */}
-          <motion.div
-            className="mb-12 p-4 rounded-lg bg-gradient-to-r from-orange-500/20 to-yellow-500/20 backdrop-blur-sm border border-orange-300/30"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
-          >
-            <p className="text-center text-white">
-              <span className="font-heading font-bold text-lg">🎉 Promo Spesial 11.11! </span>
-              <span className="ml-2">Diskon hingga 50% untuk pembelian grosir</span>
-            </p>
-          </motion.div>
-
-          {/* Fitur unggulan - Featured benefits */}
-          <motion.ul 
-            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.0 }}
             role="list"
             aria-label="Keunggulan toko kami"
           >
@@ -138,7 +112,7 @@ export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: Hero
                 className="flex items-start gap-3"
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 1.2 + (index * 0.1) }}
+                transition={{ duration: 0.6, delay: 1.0 + (index * 0.1) }}
                 whileHover={{ scale: 1.05 }}
               >
                 <motion.div 
