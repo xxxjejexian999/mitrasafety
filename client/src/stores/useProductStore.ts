@@ -8,13 +8,18 @@ type OptimizedMediaVariant = {
   url?: string;
 };
 
-type SafetyProduct = Omit<Product, 'protectionLevels' | 'complianceStandards' | 'hazardClasses' | 'optimizedMedia' | 'images' | 'badge'> & {
+type Specification = {
+  label: string;
+  value: string;
+};
+
+type SafetyProduct = Omit<Product, 'protectionLevels' | 'complianceStandards' | 'hazardClasses' | 'optimizedMedia' | 'images' | 'badge' | 'specifications'> & {
   protectionLevels: string[];
   complianceStandards: string[];
   hazardClasses: string[];
   optimizedMedia: OptimizedMediaVariant[];
   images: string[];
-  // Ensure originalPrice and badge are compatible with ProductDetailModal
+  specifications?: Specification[];
   originalPrice?: number | null;
   badge?: string;
 };
@@ -104,6 +109,29 @@ const parseMediaArray = (value: unknown): OptimizedMediaVariant[] => {
   return [];
 };
 
+const parseSpecifications = (value: unknown): Specification[] | undefined => {
+  if (Array.isArray(value)) {
+    return value.filter((item): item is Specification =>
+      !!item && typeof item === 'object' && 'label' in item && 'value' in item
+    );
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    try {
+      const parsed = JSON.parse(value);
+      if (Array.isArray(parsed)) {
+        return parsed.filter((item): item is Specification =>
+          !!item && typeof item === 'object' && 'label' in item && 'value' in item
+        );
+      }
+    } catch (error) {
+      console.warn('Failed to parse specifications from product payload:', error);
+    }
+  }
+
+  return undefined;
+};
+
 const normalizeProduct = (product: Product): SafetyProduct => ({
   ...product,
   protectionLevels: parseStringArray((product as Product & { protectionLevels?: unknown }).protectionLevels),
@@ -111,6 +139,7 @@ const normalizeProduct = (product: Product): SafetyProduct => ({
   hazardClasses: parseStringArray((product as Product & { hazardClasses?: unknown }).hazardClasses),
   optimizedMedia: parseMediaArray((product as Product & { optimizedMedia?: unknown }).optimizedMedia),
   images: parseStringArray((product as Product & { images?: unknown }).images),
+  specifications: parseSpecifications((product as Product & { specifications?: unknown }).specifications),
   badge: product.badge ?? undefined,
 });
 
