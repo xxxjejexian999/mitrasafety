@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Building2, Shield, Truck } from "lucide-react";
+import { ShoppingBag, Building2, Shield, Truck, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import heroImage from "@assets/generated_images/Indonesian_worker_safety_hero_image_db7e2279.png";
 
@@ -7,6 +7,12 @@ interface HeroProps {
   onShopNowClick?: () => void;
   onCorporateSolutionsClick?: () => void;
 }
+
+const handleWhatsAppClick = () => {
+  const message = "Halo! Saya tertarik dengan produk keselamatan kerja dari Mitra Safety Indonesia.";
+  const whatsappUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
+  window.open(whatsappUrl, "_blank");
+};
 
 export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: HeroProps) {
   return (
@@ -64,7 +70,7 @@ export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: Hero
           
           {/* Dual-path CTA buttons */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 mb-12"
+            className="flex flex-col sm:flex-row gap-4 mb-8"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
@@ -90,6 +96,25 @@ export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: Hero
             >
               <Building2 className="h-5 w-5" aria-hidden="true" />
               <span className="font-heading">Solusi Korporat</span>
+            </Button>
+          </motion.div>
+          
+          {/* WhatsApp Quick Contact Button */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+            className="mb-12"
+          >
+            <Button
+              size="lg"
+              onClick={handleWhatsAppClick}
+              className="gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white shadow-lg min-h-12 px-8"
+              data-testid="button-whatsapp-hero"
+              aria-label="Chat langsung dengan kami via WhatsApp"
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden="true" />
+              <span className="font-heading">Chat Langsung via WhatsApp</span>
             </Button>
           </motion.div>
 

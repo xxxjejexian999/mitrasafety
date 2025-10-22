@@ -41,14 +41,12 @@ export default function ProductDetailModal({
 }: ProductDetailModalProps) {
   const [selectedImage, setSelectedImage] = useState(0);
   const [quantity, setQuantity] = useState(1);
-
-  if (!product) return null;
   
-  const images = product.images || [product.imageUrl];
-  const protectionLevels = product.protectionLevels ?? [];
-  const complianceStandards = product.complianceStandards ?? [];
-  const hazardClasses = product.hazardClasses ?? [];
-  const optimizedMedia = product.optimizedMedia ?? [];
+  const images = product?.images || (product ? [product.imageUrl] : []);
+  const protectionLevels = product?.protectionLevels ?? [];
+  const complianceStandards = product?.complianceStandards ?? [];
+  const hazardClasses = product?.hazardClasses ?? [];
+  const optimizedMedia = product?.optimizedMedia ?? [];
 
   const protectionLabels: Record<string, string> = {
     "impact:steel-toe": "Steel Toe",
@@ -72,15 +70,15 @@ export default function ProductDetailModal({
   // Alt text deskriptif untuk gambar produk detail - Descriptive alt text for product detail images
   // Menyertakan nama produk, kategori, status stok, dan informasi tambahan
   // Includes product name, category, stock status, and additional information
-  const mainImageAlt = `${product.name} - ${product.category}${
+  const mainImageAlt = product ? `${product.name} - ${product.category}${
     product.badge ? `, ${product.badge}` : ''
-  } - ${product.inStock ? 'Tersedia' : 'Stok habis'} - Gambar produk utama`;
+  } - ${product.inStock ? 'Tersedia' : 'Stok habis'} - Gambar produk utama` : '';
 
   // Navigasi keyboard untuk galeri gambar - Keyboard navigation for image gallery
   // Gunakan panah kiri/kanan untuk berpindah gambar
   // Use left/right arrows to navigate images
   useEffect(() => {
-    if (!open) return;
+    if (!open || !product) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       // Navigasi gambar dengan panah kiri/kanan - Navigate images with left/right arrows
@@ -95,7 +93,9 @@ export default function ProductDetailModal({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [open, images.length]);
+  }, [open, product, images.length]);
+  
+  if (!product) return null;
 
   const formatPrice = (amount: number) => {
     return new Intl.NumberFormat("id-ID", {

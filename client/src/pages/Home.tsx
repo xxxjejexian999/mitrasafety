@@ -422,15 +422,15 @@ export default function Home() {
           </section>
 
           {/* Bagian kategori produk - Product categories section */}
-          <section className="container mx-auto px-4" aria-labelledby="categories-heading">
-            <div className="mb-8 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <section className="container mx-auto px-4 py-8" aria-labelledby="categories-heading">
+            <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <h2 id="categories-heading" className="text-3xl font-bold text-foreground mb-2" data-testid="text-categories-title">
+                <h2 id="categories-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-3" data-testid="text-categories-title">
                   Kategori Produk
                 </h2>
-                <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+                <div className="h-1.5 w-24 bg-gradient-to-r from-primary via-primary/70 to-primary/50 rounded-full"></div>
               </div>
-              <p className="text-sm text-muted-foreground max-w-lg leading-relaxed">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-xl leading-relaxed">
                 Pilih kategori untuk langsung menelusuri perlengkapan keselamatan sesuai kebutuhan Anda.
               </p>
             </div>
@@ -452,15 +452,15 @@ export default function Home() {
           </section>
 
           {/* Bagian daftar produk - Products listing section */}
-          <section id="products-section" className="container mx-auto px-4" aria-labelledby="products-heading">
-            <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <section id="products-section" className="container mx-auto px-4 py-8" aria-labelledby="products-heading">
+            <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div>
-                <h2 id="products-heading" className="text-3xl font-bold text-foreground mb-2" data-testid="text-products-title">
+                <h2 id="products-heading" className="text-3xl md:text-4xl font-bold text-foreground mb-3" data-testid="text-products-title">
                   {filters.selectedCategories.length === 1
                     ? categories.find((c) => c.id === filters.selectedCategories[0])?.name
                     : "Semua Produk"}
                 </h2>
-                <div className="h-1 w-20 bg-gradient-to-r from-primary to-primary/50 rounded-full"></div>
+                <div className="h-1.5 w-24 bg-gradient-to-r from-primary via-primary/70 to-primary/50 rounded-full"></div>
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 {hasActiveFilters && (
