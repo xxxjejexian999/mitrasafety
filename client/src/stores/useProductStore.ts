@@ -8,14 +8,15 @@ type OptimizedMediaVariant = {
   url?: string;
 };
 
-type SafetyProduct = Omit<Product, 'protectionLevels' | 'complianceStandards' | 'hazardClasses' | 'optimizedMedia' | 'images'> & {
+type SafetyProduct = Omit<Product, 'protectionLevels' | 'complianceStandards' | 'hazardClasses' | 'optimizedMedia' | 'images' | 'badge'> & {
   protectionLevels: string[];
   complianceStandards: string[];
   hazardClasses: string[];
   optimizedMedia: OptimizedMediaVariant[];
   images: string[];
-  // Ensure originalPrice is compatible with ProductDetailModal
+  // Ensure originalPrice and badge are compatible with ProductDetailModal
   originalPrice?: number | null;
+  badge?: string;
 };
 
 interface ProductFilters {
@@ -110,6 +111,7 @@ const normalizeProduct = (product: Product): SafetyProduct => ({
   hazardClasses: parseStringArray((product as Product & { hazardClasses?: unknown }).hazardClasses),
   optimizedMedia: parseMediaArray((product as Product & { optimizedMedia?: unknown }).optimizedMedia),
   images: parseStringArray((product as Product & { images?: unknown }).images),
+  badge: product.badge ?? undefined,
 });
 
 export const useProductStore = create<ProductStore>((set, get) => ({
