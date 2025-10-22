@@ -1,0 +1,163 @@
+import { Button } from "@/components/ui/button";
+import { ShoppingBag, Building2, Shield, Truck } from "lucide-react";
+import { motion } from "framer-motion";
+import heroImage from "@assets/generated_images/Indonesian_worker_safety_hero_image_db7e2279.png";
+
+interface HeroProps {
+  onShopNowClick?: () => void;
+  onCorporateSolutionsClick?: () => void;
+}
+
+export default function Hero({ onShopNowClick, onCorporateSolutionsClick }: HeroProps) {
+  return (
+    <section 
+      className="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden" 
+      aria-labelledby="hero-title"
+    >
+      {/* 
+        Gunakan elemen <img> untuk gambar hero demi aksesibilitas yang lebih baik.
+        Ini memastikan pembaca layar dapat mengidentifikasi dan mengumumkan alt text gambar.
+        Gunakan loading="eager" karena ini adalah gambar Largest Contentful Paint (LCP).
+        
+        Use an <img> element for the hero image for better accessibility.
+        This ensures screen readers can identify and announce the image's alt text.
+        Use loading="eager" as this is likely the Largest Contentful Paint (LCP) image.
+      */}
+      <img
+        src={heroImage}
+        alt="Seorang pekerja konstruksi Indonesia mengenakan helm keselamatan dan rompi visibilitas tinggi, berdiri dengan latar belakang lokasi konstruksi di Jakarta."
+        className="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
+        width={1920}
+        height={1080}
+      />
+
+      {/* Overlay gradien untuk memastikan keterbacaan teks - Gradient overlay to ensure text readability */}
+      <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 to-charcoal/50" aria-hidden="true" />
+
+      <div className="relative container mx-auto px-4 py-16 md:py-24">
+        <div className="max-w-3xl text-white">
+          {/*
+            Gunakan <h1> untuk judul utama halaman untuk struktur semantik yang benar.
+            Use <h1> for the main page title for correct semantic structure.
+          */}
+          <motion.h1
+            id="hero-title"
+            className="text-3xl md:text-5xl font-heading font-bold mb-4 leading-tight" 
+            data-testid="text-hero-title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Perlengkapan Keselamatan Kerja Terlengkap untuk Indonesia
+          </motion.h1>
+          <motion.p 
+            className="text-lg md:text-xl mb-8 text-white/90" 
+            data-testid="text-hero-subtitle"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Produk berkualitas tinggi dengan harga terjangkau. Dipercaya oleh 500+ perusahaan di Indonesia. 
+            Solusi lengkap untuk kebutuhan keselamatan kerja B2C dan B2B.
+          </motion.p>
+          
+          {/* Dual-path CTA buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <Button
+              size="lg"
+              variant="default"
+              onClick={onShopNowClick}
+              className="gap-2 min-h-12 px-8 flex-1"
+              data-testid="button-shop-now"
+              aria-label="Mulai berbelanja produk keselamatan kerja untuk kebutuhan pribadi atau tim"
+            >
+              <ShoppingBag className="h-5 w-5" aria-hidden="true" />
+              <span className="font-heading">Belanja Retail</span>
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              onClick={onCorporateSolutionsClick}
+              className="gap-2 min-h-12 px-8 flex-1 bg-white/10 hover:bg-white/20 border border-white/20"
+              data-testid="button-corporate-solutions"
+              aria-label="Pelajari solusi keselamatan kerja untuk perusahaan dan pengadaan B2B"
+            >
+              <Building2 className="h-5 w-5" aria-hidden="true" />
+              <span className="font-heading">Solusi Korporat</span>
+            </Button>
+          </motion.div>
+
+          {/* Regional messaging */}
+          <motion.div
+            className="mb-6 p-4 rounded-lg bg-white/10 backdrop-blur-sm border border-white/20"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <p className="text-center text-white/90">
+              <span className="font-semibold">Gratis Ongkir Jabodetabek</span> • 
+              <span className="ml-2">Pengiriman Cepat ke Seluruh Indonesia</span>
+            </p>
+          </motion.div>
+
+          {/* Seasonal campaign banner */}
+          <motion.div
+            className="mb-12 p-4 rounded-lg bg-gradient-to-r from-orange-500/20 to-yellow-500/20 backdrop-blur-sm border border-orange-300/30"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+          >
+            <p className="text-center text-white">
+              <span className="font-heading font-bold text-lg">🎉 Promo Spesial 11.11! </span>
+              <span className="ml-2">Diskon hingga 50% untuk pembelian grosir</span>
+            </p>
+          </motion.div>
+
+          {/* Fitur unggulan - Featured benefits */}
+          <motion.ul 
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.0 }}
+            role="list"
+            aria-label="Keunggulan toko kami"
+          >
+            {[
+              { icon: Shield, title: "Produk Berstandar", desc: "Sertifikat SNI & ISO" },
+              { icon: Truck, title: "Gratis Ongkir", desc: "Minimal pembelian 500rb" },
+              { icon: ShoppingBag, title: "Harga Grosir", desc: "Untuk pembelian banyak" }
+            ].map((item, index) => (
+              <motion.li 
+                key={item.title}
+                className="flex items-start gap-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 + (index * 0.1) }}
+                whileHover={{ scale: 1.05 }}
+              >
+                <motion.div 
+                  className="rounded-full bg-white/20 p-2 backdrop-blur-sm"
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.5 }}
+                  aria-hidden="true"
+                >
+                  <item.icon className="h-5 w-5 text-white" />
+                </motion.div>
+                <div>
+                  <h3 className="font-semibold text-white">{item.title}</h3>
+                  <p className="text-sm text-white/80">{item.desc}</p>
+                </div>
+              </motion.li>
+            ))}
+          </motion.ul>
+        </div>
+      </div>
+    </section>
+  );
+}
