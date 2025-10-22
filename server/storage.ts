@@ -143,4 +143,134 @@ export class DbStorage implements IStorage {
   }
 }
 
-export const storage = new DbStorage();
+export class MemStorage implements IStorage {
+  private users: User[] = [];
+  private products: Product[] = [];
+  private categories: Category[] = [];
+  private orders: Order[] = [];
+
+  async getUser(id: string): Promise<User | undefined> {
+    return this.users.find(u => u.id === id);
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    return this.users.find(u => u.username === username);
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const user: User = {
+      id: crypto.randomUUID(),
+      ...insertUser,
+    };
+    this.users.push(user);
+    return user;
+  }
+
+  async getAllProducts(): Promise<Product[]> {
+    return [...this.products];
+  }
+
+  async getProduct(id: string): Promise<Product | undefined> {
+    return this.products.find(p => p.id === id);
+  }
+
+  async getProductsByCategory(category: string): Promise<Product[]> {
+    return this.products.filter(p => p.category === category);
+  }
+
+  async searchProducts(params: {
+    query?: string;
+    categories?: string[];
+    minPrice?: number;
+    maxPrice?: number;
+    inStockOnly?: boolean;
+  }): Promise<Product[]> {
+    let results = [...this.products];
+
+    if (params.query) {
+      const query = params.query.toLowerCase();
+      results = results.filter(p => 
+        p.name.toLowerCase().includes(query) || 
+        p.description.toLowerCase().includes(query)
+      );
+    }
+
+    if (params.categories && params.categories.length > 0) {
+      results = results.filter(p => params.categories!.includes(p.category));
+    }
+
+    if (params.minPrice !== undefined) {
+      results = results.filter(p => p.price >= params.minPrice!);
+    }
+
+    if (params.maxPrice !== undefined) {
+      results = results.filter(p => p.price <= params.maxPrice!);
+    }
+
+    if (params.inStockOnly) {
+      results = results.filter(p => p.inStock);
+    }
+
+    return results;
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const product: Product = {
+      id: crypto.randomUUID(),
+      originalPrice: null,
+      inStock: true,
+      badge: null,
+      images: null,
+      specifications: null,
+      protectionLevels: null,
+      complianceStandards: null,
+      hazardClasses: null,
+      optimizedMedia: null,
+      ...insertProduct,
+    };
+    this.products.push(product);
+    return product;
+  }
+
+  async getAllCategories(): Promise<Category[]> {
+    return [...this.categories];
+  }
+
+  async getCategory(id: string): Promise<Category | undefined> {
+    return this.categories.find(c => c.id === id);
+  }
+
+  async createCategory(insertCategory: InsertCategory): Promise<Category> {
+    const category: Category = {
+      productCount: 0,
+      ...insertCategory,
+    };
+    this.categories.push(category);
+    return category;
+  }
+
+  async updateCategoryProductCount(categoryId: string, count: number): Promise<void> {
+    const category = this.categories.find(c => c.id === categoryId);
+    if (category) {
+      category.productCount = count;
+    }
+  }
+
+  async createOrder(insertOrder: InsertOrder): Promise<Order> {
+    const order: Order = {
+      id: crypto.randomUUID(),
+      createdAt: new Date(),
+      status: "pending",
+      customerEmail: null,
+      ...insertOrder,
+    };
+    this.orders.push(order);
+    return order;
+  }
+
+  async getOrder(id: string): Promise<Order | undefined> {
+    return this.orders.find(o => o.id === id);
+  }
+}
+
+export const storage = new MemStorage();
